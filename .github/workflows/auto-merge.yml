@@ -9,13 +9,13 @@ permissions:
   pull-requests: write
 
 jobs:
-  dependabot:
-    if: github.event.pull_request.user.login == 'dependabot[bot]'
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Enable auto-merge
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge "$PR_URL" --auto --merge
+      - name: Test trigger
+        run: |
+          echo "WORKFLOW TRIGGERED"
+          echo "Actor: ${{ github.actor }}"
+          echo "PR: ${{ github.event.pull_request.html_url }}"
+          echo "PR author: ${{ github.event.pull_request.user.login }}"
